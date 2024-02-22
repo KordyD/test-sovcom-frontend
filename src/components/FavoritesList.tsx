@@ -9,10 +9,12 @@ const FavoritesList = forwardRef(
       favorites,
       droppableProps,
       placeholder,
+      isDragDisabled,
     }: {
       favorites: Word[];
       droppableProps: DroppableProvidedProps;
       placeholder: ReactNode;
+      isDragDisabled: boolean;
     },
     ref?: Ref<HTMLUListElement>,
   ) => {
@@ -24,6 +26,7 @@ const FavoritesList = forwardRef(
               key={item.meta.id}
               draggableId={item.meta.id}
               index={index}
+              isDragDisabled={isDragDisabled}
             >
               {(provided) => (
                 <FavoriteCard
