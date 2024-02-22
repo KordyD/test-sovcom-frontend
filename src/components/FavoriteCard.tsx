@@ -16,10 +16,12 @@ const FavoriteCard = forwardRef(
       word,
       dragHandleProps,
       draggableProps,
+      isDragDisabled,
     }: {
       word: Word;
       dragHandleProps?: DraggableProvidedDragHandleProps | null;
       draggableProps: DraggableProvidedDraggableProps;
+      isDragDisabled: boolean;
     },
     ref?: Ref<HTMLLIElement>,
   ) => {
@@ -39,7 +41,10 @@ const FavoriteCard = forwardRef(
             </button>
           }
           leftButton={
-            <div {...dragHandleProps}>
+            <div
+              className={`${isDragDisabled ? 'hidden' : ''}`}
+              {...dragHandleProps}
+            >
               <GripHorizontal />
             </div>
           }

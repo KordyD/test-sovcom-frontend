@@ -14,7 +14,7 @@ const FavoritesModule = ({
 }) => {
   const favorites = useSelector((state: RootState) => state.favorites).filter(
     (item) =>
-      item.meta.stems[0].includes(query) &&
+      item.meta.stems[0].toLowerCase().includes(query.toLowerCase()) &&
       (partOfSpeech ? item.fl === partOfSpeech : true),
   );
   const dispatch = useDispatch<AppDispatch>();

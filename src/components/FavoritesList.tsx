@@ -30,6 +30,7 @@ const FavoritesList = forwardRef(
             >
               {(provided) => (
                 <FavoriteCard
+                  isDragDisabled={isDragDisabled}
                   dragHandleProps={provided.dragHandleProps}
                   ref={provided.innerRef}
                   word={item}

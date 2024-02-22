@@ -2,9 +2,11 @@ import { useState } from 'react';
 import FavoritesModule from '../components/FavoritesModule';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { useDebounce } from '../hooks/useDebounce';
 
 const Favorites = () => {
   const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query);
   const [partOfSpeech, setPartOfSpeech] = useState<string | null>(null);
   const partsOfSpeech = [
     ...new Set(
@@ -14,6 +16,9 @@ const Favorites = () => {
         .sort(),
     ),
   ];
+  if (partOfSpeech && !partsOfSpeech.includes(partOfSpeech)) {
+    setPartOfSpeech(null);
+  }
   return (
     <div className='flex space-x-6 py-6'>
       <div className='flex h-min min-h-40 flex-col rounded-md bg-slate-300 p-5'>
@@ -43,7 +48,7 @@ const Favorites = () => {
           </label>
         ))}
       </div>
-      <FavoritesModule query={query} partOfSpeech={partOfSpeech} />
+      <FavoritesModule query={debouncedQuery} partOfSpeech={partOfSpeech} />
     </div>
   );
 };
