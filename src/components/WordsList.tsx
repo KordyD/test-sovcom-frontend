@@ -9,14 +9,14 @@ const WordsList = ({ changeQuery }: { changeQuery: (str: string) => void }) => {
 
   if (status === 'loading') {
     return (
-      <div className='flex grow items-center justify-center'>
+      <div className='flex h-full grow  items-center justify-center'>
         <Loader2 className='size-20 animate-spin stroke-blue-400' />
       </div>
     );
   }
   if (words.length === 0) {
     return (
-      <div className='flex grow items-center justify-center'>
+      <div className='flex h-full grow items-center justify-center'>
         <p className='text-2xl text-gray-400'>No words</p>
       </div>
     );
