@@ -23,6 +23,7 @@ const WordModule = () => {
             setQuery(event.target.value);
           }}
           value={query}
+          placeholder='Search'
         />
       </div>
       {debouncedQuery === '' ? (

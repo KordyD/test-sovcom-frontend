@@ -28,6 +28,9 @@ const wordsSlice = createSlice({
         (item) => item.meta.id !== action.payload.meta.id,
       );
     },
+    updateFavorite: (state, action: PayloadAction<Word[]>) => {
+      state.favorites = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -66,4 +69,5 @@ const wordsSlice = createSlice({
 
 export default wordsSlice.reducer;
 
-export const { addToFavorite, removeFromFavorite } = wordsSlice.actions;
+export const { addToFavorite, removeFromFavorite, updateFavorite } =
+  wordsSlice.actions;
