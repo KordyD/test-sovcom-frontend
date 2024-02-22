@@ -1,9 +1,12 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { Loader2, Star } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store';
 import Accordion from './ui/Accordion';
-import { Loader2 } from 'lucide-react';
+import { addToFavorite, removeFromFavorite } from '../store/wordsSlice';
 
 const WordsList = ({ changeQuery }: { changeQuery: (str: string) => void }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const favorites = useSelector((state: RootState) => state.favorites);
   const words = useSelector((state: RootState) => state.words);
   const status = useSelector((state: RootState) => state.status);
 
@@ -52,6 +55,25 @@ const WordsList = ({ changeQuery }: { changeQuery: (str: string) => void }) => {
           typeof item !== 'string' && (
             <li key={item.meta.id}>
               <Accordion
+                button={
+                  <button
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      if (
+                        favorites.find((elem) => elem.meta.id === item.meta.id)
+                      ) {
+                        dispatch(removeFromFavorite(item));
+                      } else {
+                        dispatch(addToFavorite(item));
+                      }
+                    }}
+                    className='text-blue-400 hover:text-blue-600'
+                  >
+                    <Star
+                      className={`${favorites.find((elem) => elem.meta.id === item.meta.id) ? 'fill-blue-400' : ''}`}
+                    />
+                  </button>
+                }
                 className='divide-y-2 rounded-md bg-white'
                 header={
                   <div className='flex w-5/6 space-x-4'>

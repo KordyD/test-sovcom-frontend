@@ -1,12 +1,13 @@
-import { ChevronDown, Star } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { HTMLAttributes, ReactNode, useState } from 'react';
 
 interface AccordionProps extends HTMLAttributes<HTMLDivElement> {
   header: ReactNode;
+  button?: ReactNode;
   children?: ReactNode;
 }
 
-const Accordion = ({ header, children, ...props }: AccordionProps) => {
+const Accordion = ({ header, children, button, ...props }: AccordionProps) => {
   const [isActive, setIsActive] = useState(false);
   return (
     <div {...props}>
@@ -15,21 +16,11 @@ const Accordion = ({ header, children, ...props }: AccordionProps) => {
         onClick={() => setIsActive((prev) => !prev)}
       >
         {header}
-        <div className='flex space-x-2'>
-          <button
-            onClick={(event) => {
-              event.stopPropagation();
-              console.log('fav');
-            }}
-            className='bg-red-500'
-          >
-            <Star />
-          </button>
-          <div>
-            <ChevronDown
-              className={`transform transition ${isActive ? 'rotate-180' : ''} `}
-            />
-          </div>
+        <div className='flex space-x-5'>
+          {button}
+          <ChevronDown
+            className={`transform transition ${isActive ? 'rotate-180' : ''} `}
+          />
         </div>
       </div>
       <div className={`px-10 py-3 ${isActive ? '' : 'hidden'}`}>{children}</div>

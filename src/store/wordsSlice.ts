@@ -5,11 +5,13 @@ import { getWords } from '../api';
 interface wordsState {
   words: Word[] | string[];
   status: 'idle' | 'loading' | 'error' | 'advice';
+  favorites: Word[];
 }
 
 const initialState: wordsState = {
   words: [],
   status: 'idle',
+  favorites: [],
 };
 
 export const fetchData = createAsyncThunk('words/get', getWords);
@@ -17,7 +19,16 @@ export const fetchData = createAsyncThunk('words/get', getWords);
 const wordsSlice = createSlice({
   name: 'words',
   initialState,
-  reducers: {},
+  reducers: {
+    addToFavorite: (state, action: PayloadAction<Word>) => {
+      state.favorites.push(action.payload);
+    },
+    removeFromFavorite: (state, action: PayloadAction<Word>) => {
+      state.favorites = state.favorites.filter(
+        (item) => item.meta.id !== action.payload.meta.id,
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
@@ -54,3 +65,5 @@ const wordsSlice = createSlice({
 });
 
 export default wordsSlice.reducer;
+
+export const { addToFavorite, removeFromFavorite } = wordsSlice.actions;
