@@ -1,20 +1,20 @@
 import { ChevronDown, Star } from 'lucide-react';
-import { ReactNode, useState } from 'react';
+import { HTMLAttributes, ReactNode, useState } from 'react';
 
-interface AccordionProps {
-  title: ReactNode;
+interface AccordionProps extends HTMLAttributes<HTMLDivElement> {
+  header: ReactNode;
   children?: ReactNode;
 }
 
-const Accordion = ({ title, children }: AccordionProps) => {
+const Accordion = ({ header, children, ...props }: AccordionProps) => {
   const [isActive, setIsActive] = useState(false);
   return (
-    <div className='bg-white'>
+    <div {...props}>
       <div
-        className='flex w-full cursor-pointer justify-between p-5'
+        className='flex h-16 cursor-pointer justify-between p-5'
         onClick={() => setIsActive((prev) => !prev)}
       >
-        <div>{title}</div>
+        {header}
         <div className='flex space-x-2'>
           <button
             onClick={(event) => {

@@ -15,19 +15,32 @@ const WordModule = () => {
   }, [debouncedQuery, dispatch]);
 
   return (
-    <div>
-      <input
-        className='border-2'
-        onChange={(event) => {
-          setQuery(event.target.value);
-        }}
-      />
+    <>
+      <div className='h-40 rounded-md bg-slate-300 p-5'>
+        <input
+          className='h-8 border-2 border-blue-500 border-opacity-30 p-5'
+          onChange={(event) => {
+            setQuery(event.target.value);
+          }}
+          value={query}
+        />
+      </div>
       {debouncedQuery === '' ? (
-        <p>Enter the word you would like to get.</p>
+        <div className='flex grow items-center justify-center'>
+          <p className='text-2xl text-gray-400'>
+            Enter the word you would like to get
+          </p>
+        </div>
       ) : (
-        <WordsList />
+        <div className='w-1/2 grow'>
+          <WordsList
+            changeQuery={(str) => {
+              setQuery(str);
+            }}
+          />
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

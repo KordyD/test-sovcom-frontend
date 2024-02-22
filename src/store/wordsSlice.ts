@@ -25,11 +25,22 @@ const wordsSlice = createSlice({
         (state, action: PayloadAction<Word[] | string[]>) => {
           if (typeof action.payload[0] === 'string') {
             state.status = 'advice';
-            state.words = action.payload;
+            state.words = action.payload
+              .slice(0, 10)
+              .sort((a, b) =>
+                (a as string)
+                  .toLowerCase()
+                  .localeCompare((b as string).toLowerCase()),
+              );
             return;
           }
-          console.log(action.payload);
-          state.words = action.payload;
+          state.words = action.payload
+            .slice(0, 10)
+            .sort((a, b) =>
+              (a as Word).meta.stems[0]
+                .toLowerCase()
+                .localeCompare((b as Word).meta.stems[0].toLowerCase()),
+            );
           state.status = 'idle';
         },
       )
