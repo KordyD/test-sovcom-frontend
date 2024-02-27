@@ -73,4 +73,6 @@ const FavoriteCard = forwardRef(
   },
 );
 
+FavoriteCard.displayName = 'FavoriteCard';
+
 export default FavoriteCard;

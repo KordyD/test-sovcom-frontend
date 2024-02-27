@@ -37,4 +37,6 @@ const Accordion = forwardRef(
   },
 );
 
+Accordion.displayName = 'Accordion';
+
 export default Accordion;

@@ -46,4 +46,6 @@ const FavoritesList = forwardRef(
   },
 );
 
+FavoritesList.displayName = 'FavoritesList';
+
 export default FavoritesList;

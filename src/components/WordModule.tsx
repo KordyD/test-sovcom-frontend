@@ -14,7 +14,6 @@ const WordModule = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const debouncedQuery = useDebounce(query);
-
   useEffect(() => {
     dispatch(fetchData(debouncedQuery));
   }, [debouncedQuery, dispatch]);
