@@ -6,12 +6,14 @@ interface wordsState {
   words: Word[] | string[];
   status: 'idle' | 'loading' | 'error' | 'advice';
   favorites: Word[];
+  partOfSpeech: string | null;
 }
 
 const initialState: wordsState = {
   words: [],
   status: 'idle',
   favorites: [],
+  partOfSpeech: null,
 };
 
 export const fetchData = createAsyncThunk('words/get', getWords);
@@ -30,6 +32,9 @@ const wordsSlice = createSlice({
     },
     updateFavorite: (state, action: PayloadAction<Word[]>) => {
       state.favorites = action.payload;
+    },
+    changePartOfSpeech: (state, action: PayloadAction<string | null>) => {
+      state.partOfSpeech = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -69,5 +74,9 @@ const wordsSlice = createSlice({
 
 export default wordsSlice.reducer;
 
-export const { addToFavorite, removeFromFavorite, updateFavorite } =
-  wordsSlice.actions;
+export const {
+  addToFavorite,
+  removeFromFavorite,
+  updateFavorite,
+  changePartOfSpeech,
+} = wordsSlice.actions;

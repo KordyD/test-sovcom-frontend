@@ -5,19 +5,17 @@ import { DragDropContext, DropResult, Droppable } from '@hello-pangea/dnd';
 import { useDispatch } from 'react-redux';
 import { updateFavorite } from '../store/wordsSlice';
 
-const FavoritesModule = ({
-  query,
-  partOfSpeech,
-}: {
-  query: string;
-  partOfSpeech: string | null;
-}) => {
+const FavoritesModule = ({ query }: { query: string }) => {
+  const partOfSpeech = useSelector((state: RootState) => state.partOfSpeech);
+
   const favorites = useSelector((state: RootState) => state.favorites).filter(
     (item) =>
       item.meta.stems[0].toLowerCase().includes(query.toLowerCase()) &&
       (partOfSpeech ? item.fl === partOfSpeech : true),
   );
+
   const dispatch = useDispatch<AppDispatch>();
+
   const dragEnded = (param: DropResult) => {
     const { source, destination } = param;
     const arr = [...favorites];
